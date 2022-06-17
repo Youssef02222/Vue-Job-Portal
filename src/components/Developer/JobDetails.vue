@@ -3,19 +3,19 @@
         <div class="w-50 mt-4 m-auto card border-0 shadow-sm p-4">
             <div class="card-body ">
                 <div class="job-info mt-3">
-                    <p class="job-title">{{jobDetils.name}}</p>
-                    <p class="address" v-if="jobDetils.job_owner.address != null">
+                    <p class="job-title" v-if="jobDetils.name !== null">{{jobDetils.name}}</p>
+                    <p class="address" v-if="owner.address !== null">
                         <i class="fa-solid fa-location-dot"></i>
-                        <span class="ms-2">{{jobDetils.job_owner.address}}</span>
+                        <span class="ms-2">{{owner.address}}</span>
                     </p>
                     <p class="date">
                         <i class="fa-solid fa-calendar-days"></i>
-                        <span class="ms-2">{{jobDetils.creation_time}}</span>
+                        <span class="ms-2" v-if="jobDetils.creation_time !== null">{{jobDetils.creation_time}}</span>
                     </p>
                 </div>
                 <div class="description mt-4">
                     <p class="job-title">Description</p>
-                    <p class="desc-content">{{jobDetils.description}}</p>
+                    <p class="desc-content" v-if="jobDetils.description !== null">{{jobDetils.description}}</p>
                 </div>
                 <div class="skills">
                     <p class="job-title">Required Skills</p>
@@ -82,15 +82,19 @@
         name:"DevJobDetails",
         data () {
                 return{
-                    jobDetils:{}
+                    jobDetils:{},
+                    owner:{}
                 }
         },
         props:['id'],
          methods : {
         getJob(){
-            axios.get('jobs/developerJobs/4/').then((res)=>{
+            let id=this.$route.params.id
+            axios.get('jobs/developer/dev-jobs/'+id+'/').then((res)=>{
                 console.log("data",res.data)
                 this.jobDetils=res.data
+                this.owner=this.jobDetils.job_owner
+
             }).catch(err=>{
             console.log(err)
         })

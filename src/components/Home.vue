@@ -2,6 +2,7 @@
     <div>
          <h1 v-if="user.UserType=='DEVELOPER'"></h1>
                  <DevJobList/>
+
     </div>
 </template>
 

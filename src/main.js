@@ -6,7 +6,7 @@ import LoginApp from './components/Login.vue';
 import SignupApp from './components/Signup.vue';
 import HomeApp from './components/Home.vue';
 import ProfileApp from './components/Profile.vue'
-import DevJobList from './components/Developer/JobsList.vue'
+import DevJobDetails from './components/Developer/JobDetails.vue'
 
 import './axios'
 
@@ -37,11 +37,11 @@ const routes = [
       },
 
       {
-        path: '/dev-jobs',
-        name: 'dev-jobs',
-        component: DevJobList,
+        path: '/home/:id/dev-job-details',
+        name: 'dev-job-details',
+        component: DevJobDetails
       },
-
+  
     
      
   ]

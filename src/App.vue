@@ -27,7 +27,7 @@ export default {
         }
       },
         components: {
-          NavApp
+          NavApp,
           // container,  
       },  
       data(){

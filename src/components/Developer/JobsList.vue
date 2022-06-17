@@ -28,7 +28,7 @@
                     </p>
                 </div>
                 <div class="job-actions col-4 border-start">
-                    <router-link :to="`/job/${job.id}`" class="show btn display-block w-100">Show Details</router-link>
+                    <router-link :to="`/home/${job.id}/dev-job-details`" class="show btn display-block w-100">Show Details</router-link>
                     <button class="apply btn display-block w-100">Apply For Job</button>
                 </div>
             </div>
