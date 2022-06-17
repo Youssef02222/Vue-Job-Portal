@@ -18,9 +18,7 @@
                       <div v-if="error !== '12'" class="alert alert-danger" role="alert">
                         invaild data {{ error }}
                       </div>
-
-
-                      <div v-if="viewCV == 'yes'" class="d-flex flex-row align-items-center mb-4">
+                      <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                           <input type="text" id="form3Example1c" v-model="username" class="form-control" required />
@@ -80,12 +78,8 @@
                       <div v-if="isDeveloper === 'yes'" class=" d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
-                              <!-- <label class="form-label">Upload CV</label>
-                           <input type="file" @change="handleFileUpload( $event )"/>
-                           <button v-on:click="submitFile()">Submit</button> -->
-                           <button class="btn btn-info" @click="onPickFile">Upload cv {{file}}</button>
-                           <input  type="file" style="display: none"  ref="fileInput"  @change="onFilePicked"/>
-                       
+                          <input type="file" id="file"/>
+                          <label class="form-label" for="form3Example4cd">Upload CV</label>
                         </div>
                       </div>
 
@@ -129,28 +123,12 @@ export default {
       confirm_password: '',
       email: '',
       cv: '',
+      file: '',
       error: '12',
-      type: '',
-       image: null,
-       file:'',
-       address:''
+      type: ''
     }
   },
   methods: {
-   onPickFile () {
-  this.$refs.fileInput.click()
-},
-onFilePicked (event) {
-  const files = event.target.files
-  let filename = files[0].name
-  this.file=filename
-  const fileReader = new FileReader()
-  fileReader.addEventListener('load', () => {
-    this.imageUrl = fileReader.result
-  })
-  fileReader.readAsDataURL(files[0])
-  this.image = files[0]
-},
     handleSubmit() {
       let formData = new FormData();
       let file = document.querySelector('#file');
@@ -177,28 +155,18 @@ onFilePicked (event) {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
+      }).then(
+          res => {
+            console.log('SUCCESS!!');
+            console.log(this.type);
 
-      )
-        .catch((err) => {
-          this.error = 'please try again'
-          console.log('FAILURE!!' + '' + err);
-        });
-
-
-
-
-
-      }
-    
-      console.log(data);
-      console.log(this.image)
-   
-
-
-
-
-
-     
+            console.log(res)
+            this.$router.push('./login');
+          }
+      ).catch((err) => {
+            this.error = 'please try again'
+            console.log('FAILURE!!' + '' + err);
+          });
     },
   }
 }
