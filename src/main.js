@@ -6,7 +6,9 @@ import LoginApp from './components/Login.vue';
 import SignupApp from './components/Signup.vue';
 import HomeApp from './components/Home.vue';
 import ProfileApp from './components/Profile.vue';
+import CompanyProfile from './components/CompanyProfile.vue';
 import NotificationsComponent from "./components/Notifications.vue";
+
 import './axios'
 
 //import Vue from 'vue'
@@ -38,6 +40,11 @@ const routes = [
         path: '/notifications',
         name: 'notifications',
         component: NotificationsComponent,
+      },
+      {
+        path: '/profile-company',
+        name: 'profile-company',
+        component: CompanyProfile,
       },
      
   ]

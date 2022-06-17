@@ -49,6 +49,13 @@
                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                           <input type="text" id="form3Example1c" v-model="firstname" class="form-control" required />
+                          <label class="form-label" for="form3Example1c">firstname</label>
+                        </div>
+                      </div>
+                       <div v-if="viewCV == 'no'" class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="text" id="form3Example1c" v-model="address" class="form-control" required />
                           <label class="form-label" for="form3Example1c">address</label>
                         </div>
                       </div>
@@ -134,7 +141,8 @@ export default {
       error: '12',
       type: '',
        image: null,
-       file:''
+       file:'',
+       address:''
     }
   },
   methods: {
@@ -188,7 +196,9 @@ onFilePicked (event) {
       else{
          data = {
         company_name: this.usernames,
-        address:this.firstname,
+        username:this.usernames,
+        address:this.address,
+        first_name:this.firstname,
         password: this.password,
         password_confirm: this.confirm_password,
         email: this.email,
