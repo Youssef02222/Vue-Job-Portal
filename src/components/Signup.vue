@@ -27,6 +27,14 @@
                       </div>
 
                       <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="text" id="form3Example2c" v-model="firstname" class="form-control" required />
+                          <label class="form-label" for="form3Example1c">Username</label>
+                        </div>
+                      </div>
+
+                      <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
 
@@ -52,10 +60,10 @@
                         </div>
                       </div>
 
-                      <div v-if="viewCV == 'yes'" class="d-flex flex-row align-items-center mb-4">
+                      <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
-                          <input type="file" @change="handleFileUpload($event)" />
+                          <input type="file" id="file"/>
                           <label class="form-label" for="form3Example4cd">Upload CV</label>
                         </div>
                       </div>
@@ -63,7 +71,7 @@
 
 
                       <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                        <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                        <button type="submit" class="btn btn-primary btn-lg" @click="handleSubmit">Register</button>
                       </div>
 
                     </form>
@@ -91,8 +99,8 @@ export default {
   name: 'SignupApp',
   data() {
     return {
-      viewCV: 'no',
       usernames: '',
+      firstname:'',
       password: '',
       confirm_password: '',
       email: '',
@@ -106,42 +114,38 @@ export default {
     handleSubmit() {
       let data = {
         username: this.usernames,
+        firstname:this.firstname,
         password: this.password,
         password_confirm: this.confirm_password,
         email: this.email,
-        user_type: this.type
+        user_type: this.type,
       }
-      console.log(data);
-      //   const res = await axios.post('developer_signup',data)
-      //    .catch((err)=>{
-      //     console.log(res.status)
-      //      console.log('FAILURE!!'+''+err);
-      //      this.error=err
-      //      });
-      //
-
-
-
-
-
-      axios.post('accounts/developer_signup', data,
-      ).then(
-        res => {
-
-          console.log('SUCCESS!!');
-          console.log(this.type);
-
-          console.log(res)
-          this.$router.push('./login');
+      let formData = new FormData();
+      let file = document.querySelector('#file');
+      formData.append("cv", file.files[0]);
+      formData.append('username',data.username);
+      formData.append('first_name',data.firstname);
+      formData.append('password',data.password);
+      formData.append('password_confirm',data.password_confirm);
+      formData.append('email',data.email);
+      formData.append('user_type',data.user_type);
+      axios.post('accounts/developer_signup/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
+      }).then(
+          res => {
+            console.log('SUCCESS!!');
+            console.log(this.type);
 
-      )
-        .catch((err) => {
-          this.error = 'please try again'
-          console.log('FAILURE!!' + '' + err);
-        });
+            console.log(res)
+            this.$router.push('./login');
+          }
+      ).catch((err) => {
+            this.error = 'please try again'
+            console.log('FAILURE!!' + '' + err);
+          });
     },
-
   }
 }
 </script>
