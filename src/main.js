@@ -6,6 +6,8 @@ import LoginApp from './components/Login.vue';
 import SignupApp from './components/Signup.vue';
 import HomeApp from './components/Home.vue';
 import ProfileApp from './components/Profile.vue'
+import DevJobList from './components/Developer/JobsList.vue'
+
 import './axios'
 
 //import Vue from 'vue'
@@ -33,6 +35,14 @@ const routes = [
         name: 'signup',
         component: SignupApp,
       },
+
+      {
+        path: '/dev-jobs',
+        name: 'dev-jobs',
+        component: DevJobList,
+      },
+
+    
      
   ]
   const router = createRouter({

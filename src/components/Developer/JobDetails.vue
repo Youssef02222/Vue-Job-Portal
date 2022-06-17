@@ -29,49 +29,77 @@
 </template>
 
 <script>
+    // export default {
+
+        
+    //     name:"JobDetails",
+
+        // setup(){
+        //     let jobDetils = {
+        //         id:2,
+        //         name:"Frontend Developer",
+        //         creation_time:"15-5-2022",
+        //         description : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        //         salary:8000,
+        //         job_owner:{
+        //             id:4,
+        //             name:"Objects",
+        //             address:"Cairo",
+        //         },
+        //         Tags:[
+        //             {
+        //                 id:1,
+        //                 name:"HTML5"
+        //             },
+        //             {
+        //                 id:2,
+        //                 name:"CSS3"
+        //             },
+        //             {
+        //                 id:3,
+        //                 name:"SASS"
+        //             }
+        //         ]
+        //     }
+        //     //Get Job Details From Api
+        //     let id = this.$route.params.id
+        //     /*axios.get(`http://127.0.0.1:8000/jobs/developer/${id}`)
+        //     .then((response)=>{
+        //         jobDetils.value = response.data
+        //         console.log(response.data)
+        //     })
+        //     .catch((err)=>{
+        //         console.log(err.response.data)
+        //     }) */
+        //     return{
+        //         jobDetils
+        //     }
+        // },
+    //}
+
+    import axios from 'axios'
     export default {
-        name:"JobDetails",
-        setup(){
-            let jobDetils = {
-                id:2,
-                name:"Frontend Developer",
-                creation_time:"15-5-2022",
-                description : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                salary:8000,
-                job_owner:{
-                    id:4,
-                    name:"Objects",
-                    address:"Cairo",
-                },
-                Tags:[
-                    {
-                        id:1,
-                        name:"HTML5"
-                    },
-                    {
-                        id:2,
-                        name:"CSS3"
-                    },
-                    {
-                        id:3,
-                        name:"SASS"
-                    }
-                ]
-            }
-            //Get Job Details From Api
-            let id = this.$route.params.id
-            /*axios.get(`http://127.0.0.1:8000/jobs/developer/${id}`)
-            .then((response)=>{
-                jobDetils.value = response.data
-                console.log(response.data)
-            })
-            .catch((err)=>{
-                console.log(err.response.data)
-            }) */
-            return{
-                jobDetils
-            }
+        name:"DevJobDetails",
+        data () {
+                return{
+                    jobDetils:{}
+                }
         },
+        props:['id'],
+         methods : {
+        getJob(){
+            axios.get('jobs/developerJobs/4/').then((res)=>{
+                console.log("data",res.data)
+                this.jobDetils=res.data
+            }).catch(err=>{
+            console.log(err)
+        })
+        }
+    },
+    mounted (){
+        this.getJob()
+    }
+  
     }
 </script>
 
