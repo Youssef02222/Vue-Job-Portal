@@ -63,6 +63,14 @@
 
 
                       <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="text" id="form3Example2c" v-model="firstname" class="form-control" required />
+                          <label class="form-label" for="form3Example1c">Username</label>
+                        </div>
+                      </div>
+
+                      <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
 
@@ -88,7 +96,7 @@
                         </div>
                       </div>
 
-                      <div v-if="viewCV == 'yes'" class="d-flex flex-row align-items-center mb-4">
+                      <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                               <!-- <label class="form-label">Upload CV</label>
@@ -103,7 +111,7 @@
 
 
                       <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                        <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                        <button type="submit" class="btn btn-primary btn-lg" @click="handleSubmit">Register</button>
                       </div>
 
                     </form>
@@ -131,7 +139,6 @@ export default {
   name: 'SignupApp',
   data() {
     return {
-      viewCV: 'no',
       usernames: '',
       firstname:'',
       password: '',
@@ -237,7 +244,6 @@ onFilePicked (event) {
 
      
     },
-
   }
 }
 </script>
