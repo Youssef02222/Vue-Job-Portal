@@ -9,13 +9,13 @@
               <div class="card-body p-md-5">
                 <div class="row justify-content-center">
                   <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                    <h2>Please select user type</h2>
-                    <button type="button" class="btn btn-outline-dark" @click="viewCV = 'yes', type = 'DEVELOPER'">Developer</button>
-                      <button type="button" class="btn btn-outline-dark mx-5" @click="viewCV = 'no', type = 'COMPANY'">Company</button>
+                    <button type="button" class="btn btn-success mx-5"
+                      @click="isDeveloper = 'yes', type = 'DEVELOPER'">Developer</button><button type="button"
+                      class="btn btn-success" @click="isDeveloper = 'no', type = 'COMPANY'">Company</button>
                     <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
                     <form class="mx-1 mx-md-4" @submit.prevent="handleSubmit">
-                      <div v-if="error != '12'" class="alert alert-danger" role="alert">
+                      <div v-if="error !== '12'" class="alert alert-danger" role="alert">
                         invaild data {{ error }}
                       </div>
 
@@ -23,57 +23,38 @@
                       <div v-if="viewCV == 'yes'" class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
-                          <input type="text" id="form3Example1c" v-model="usernames" class="form-control" required />
+                          <input type="text" id="form3Example1c" v-model="username" class="form-control" required />
                           <label class="form-label" for="form3Example1c">Username</label>
                         </div>
                       </div>
 
-                       <div v-if="viewCV == 'yes'" class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                          <input type="text" id="form3Example1c" v-model="firstname" class="form-control" required />
-                          <label class="form-label" for="form3Example1c">First_name</label>
-                        </div>
-                      </div>
-
-
-                        <div v-if="viewCV == 'no'" class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                          <input type="text" id="form3Example1c" v-model="usernames" class="form-control" required />
-                          <label class="form-label" for="form3Example1c">Company name</label>
-                        </div>
-                      </div>
-
-                       <div v-if="viewCV == 'no'" class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                          <input type="text" id="form3Example1c" v-model="firstname" class="form-control" required />
-                          <label class="form-label" for="form3Example1c">firstname</label>
-                        </div>
-                      </div>
-                       <div v-if="viewCV == 'no'" class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                          <input type="text" id="form3Example1c" v-model="address" class="form-control" required />
-                          <label class="form-label" for="form3Example1c">address</label>
-                        </div>
-                      </div>
-
-
-
-                      <div class="d-flex flex-row align-items-center mb-4">
+                      <div v-if="isDeveloper === 'yes'" class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                           <input type="text" id="form3Example2c" v-model="firstname" class="form-control" required />
-                          <label class="form-label" for="form3Example1c">Username</label>
+                          <label class="form-label" for="form3Example1c">firstname</label>
+                        </div>
+                      </div>
+
+                      <div v-if="isDeveloper === 'no'" class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="text" id="form3Example12c" v-model="company_name" class="form-control" required />
+                          <label class="form-label" for="form3Example1c">Company Name</label>
+                        </div>
+                      </div>
+
+                      <div v-if="isDeveloper === 'no'" class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="text" id="form3Example0c" v-model="address" class="form-control" required />
+                          <label class="form-label" for="form3Example1c">Company Address</label>
                         </div>
                       </div>
 
                       <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
-
                           <input type="email" id="form3Example3c" v-model="email" class="form-control" required />
                           <label class="form-label" for="form3Example3c">Your Email</label>
                         </div>
@@ -96,7 +77,7 @@
                         </div>
                       </div>
 
-                      <div class="d-flex flex-row align-items-center mb-4">
+                      <div v-if="isDeveloper === 'yes'" class=" d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                               <!-- <label class="form-label">Upload CV</label>
@@ -139,7 +120,10 @@ export default {
   name: 'SignupApp',
   data() {
     return {
-      usernames: '',
+      isDeveloper:'yes',
+      company_name:'',
+      address:'',
+      username: '',
       firstname:'',
       password: '',
       confirm_password: '',
@@ -168,58 +152,30 @@ onFilePicked (event) {
   this.image = files[0]
 },
     handleSubmit() {
-      let data={}
-      if(this.viewCV=='yes'){
-         data = {
-        username: this.usernames,
-        first_name:this.firstname,
-        password: this.password,
-        password_confirm: this.confirm_password,
-        email: this.email,
-        user_type: this.type,
-        cv:this.image
+      let formData = new FormData();
+      let file = document.querySelector('#file');
+      if(this.type=='DEVELOPER'){
+        formData.append("cv", file.files[0]);
+        formData.append('username',this.username);
+        formData.append('first_name',this.firstname);
+        formData.append('password',this.password);
+        formData.append('password_confirm',this.confirm_password);
+        formData.append('email',this.email);
+        formData.append('user_type',this.type);
+      }
+      if(this.type=='COMPANY'){
+        formData.append('username',this.username);
+        formData.append('company_name',this.company_name);
+        formData.append('password',this.password);
+        formData.append('password_confirm',this.confirm_password);
+        formData.append('email',this.email);
+        formData.append('address',this.address);
+        formData.append('user_type',this.type);
       }
 
-           axios.post('accounts/developer_signup/', data,
-      ).then(
-        res => {
-
-          console.log('SUCCESS!!');
-          console.log(this.type);
-
-          console.log(res)
-          this.$router.push('./login');
-        }
-
-      )
-        .catch((err) => {
-          this.error = 'please try again'
-          console.log('FAILURE!!' + '' + err);
-        });
-
-
-
-      }
-      else{
-         data = {
-        company_name: this.usernames,
-        username:this.usernames,
-        address:this.address,
-        first_name:this.firstname,
-        password: this.password,
-        password_confirm: this.confirm_password,
-        email: this.email,
-        user_type: this.type
-      }
-         axios.post('accounts/company_signup/', data,
-      ).then(
-        res => {
-
-          console.log('SUCCESS!!');
-          console.log(this.type);
-
-          console.log(res)
-          this.$router.push('./login');
+      axios.post('accounts/company_signup/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
 
       )
