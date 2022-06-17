@@ -124,7 +124,7 @@ export default {
 
 
 
-      axios.post('accounts/developer_signup', data,
+      axios.post('accounts/developer_signup/', data,
       ).then(
         res => {
 

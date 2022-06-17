@@ -17,6 +17,8 @@ const routes = [
       name: 'Home',
       component: HomeApp
     },
+
+
     {
       path: '/profile',
       name: 'Profile',
@@ -33,6 +35,7 @@ const routes = [
         name: 'signup',
         component: SignupApp,
       },
+      
      
   ]
   const router = createRouter({

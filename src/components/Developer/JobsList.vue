@@ -56,48 +56,48 @@ import Dropdown from 'primevue/dropdown';
             let value = ref()
             let selectedCities = ref()
             let keyWord = ref('')
-            let jobsList = ref([
-                {
-                    id:1,
-                    name:"Frontend Developer",
-                    address:"Cairo",
-                    creation_time:"15-5-1999",
-                    status:"OPEN"
-                },
-                {
-                    id:2,
-                    name:"DevOps Developer",
-                    address:"Alex",
-                    creation_time:"15-5-1999",
-                    status:"OPEN"
-                },
-                {
-                    id:1,
-                    name:"Frontend Developer",
-                    address:"Alex",
-                    creation_time:"15-5-1999",
-                    status:"OPEN"
-                },
-                {
-                    id:2,
-                    name:"DevOps Developer",
-                    address:"Kafr Eldawar",
-                    creation_time:"15-5-1999",
-                    status:"OPEN"
-                }
-            ])
-            let cities = reactive([
-                {
-                    id: 1,
-                    name: "Cairo",
-                    value: "Cairo"
-                },
-                {
-                    id: 2,
-                    name: "Alex",
-                    value: "Alex"
-                },
-            ])
+            // let jobsList = ref([
+            //     {
+            //         id:1,
+            //         name:"Frontend Developer",
+            //         address:"Cairo",
+            //         creation_time:"15-5-1999",
+            //         status:"OPEN"
+            //     },
+            //     {
+            //         id:2,
+            //         name:"DevOps Developer",
+            //         address:"Alex",
+            //         creation_time:"15-5-1999",
+            //         status:"OPEN"
+            //     },
+            //     {
+            //         id:1,
+            //         name:"Frontend Developer",
+            //         address:"Alex",
+            //         creation_time:"15-5-1999",
+            //         status:"OPEN"
+            //     },
+            //     {
+            //         id:2,
+            //         name:"DevOps Developer",
+            //         address:"Kafr Eldawar",
+            //         creation_time:"15-5-1999",
+            //         status:"OPEN"
+            //     }
+            // ])
+            // let cities = reactive([
+            //     {
+            //         id: 1,
+            //         name: "Cairo",
+            //         value: "Cairo"
+            //     },
+            //     {
+            //         id: 2,
+            //         name: "Alex",
+            //         value: "Alex"
+            //     },
+            // ])
              
             //Get All Jobs From Api
             /*axios.get("http://127.0.0.1:8000/jobs/developer")

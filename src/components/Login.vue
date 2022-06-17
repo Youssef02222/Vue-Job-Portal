@@ -1,4 +1,6 @@
 <template>
+{{username}}
+{{password}}
     <div>
       <section class="vh-100" style="background-color: #eee;">
   <div class="container h-100">
@@ -87,7 +89,7 @@ import axios from 'axios'
 
 
                // this.$store.dispatch('user', response.data.user)
-               // this.$router.push('/home')
+                this.$router.push('/home')
             }
         }
 
