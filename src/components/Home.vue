@@ -2,8 +2,8 @@
     <div>
         <div v-if="user.id">
             
-            <!-- <ComJobListVue v-if="userType=='COMPANY'"/> -->
-            <ComJobDetails/>
+            <ComJobListVue v-if="userType=='COMPANY'"/>
+            <!-- <ComJobDetails/> -->
         </div>
         
         <h1 v-if="!user.username">you are not logged in  {{user}}</h1>
@@ -11,8 +11,8 @@
 </template>
 
 <script>
-// import ComJobListVue from './Company/ComJobList.vue'
-import ComJobDetails from './Company/ComJobDetails.vue'
+import ComJobListVue from './Company/ComJobList.vue'
+// import ComJobDetails from './Company/ComJobDetails.vue'
 undefined 
     export default {
         name:'HomeApp',
@@ -26,8 +26,8 @@ undefined
             }
         },
         components :{
-    // ComJobListVue,
-    ComJobDetails,
+    ComJobListVue,
+    // ComJobDetails,
     
 }
     }

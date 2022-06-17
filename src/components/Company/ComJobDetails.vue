@@ -1,13 +1,13 @@
 <template>
-
+owner: {{owner}}
 <div class="container">
         <div class="w-50 mt-4 m-auto card border-0 shadow-sm p-4">
             <div class="card-body ">
                 <div class="job-info mt-3">
                     <p class="job-title">{{jobDetils.name}}</p>
-                    <p class="address" v-if="jobDetils.job_owner.address != null">
+                    <p class="address">
                         <i class="fa-solid fa-location-dot"></i>
-                        <span class="ms-2">{{jobDetils.job_owner.address}}</span>
+                        <span class="ms-2">{{owner.company_name}}</span>
                     </p>
                     <p class="date">
                         <i class="fa-solid fa-calendar-days"></i>
@@ -24,6 +24,28 @@
                         {{tag.name}}
                     </span>
                 </div>
+                 <div class="skills">
+                    <p class="job-title">Applied developers</p>
+                    <div v-for="dev in jobDetils.applied_developers" :key="dev.id" >
+                        {{dev.id}} 
+                        <button @click="acceptDev(dev.id)" class="btn">Accept developer</button>
+                    </div>
+               </div>
+                  <div class="skills">
+                    <p class="job-title">Accepted Developer data</p>
+                    <ul>
+                        <li>{{accepted_developer.username}}</li>
+                        <li>{{accepted_developer.email}}</li>
+                        <li>{{accepted_developer.first_name}}</li>
+                    </ul>
+                </div>
+                <div class="skills">
+                    <p class="job-title">Status</p>
+                       <p class="status">
+                        <span :class="OPEN">{{jobDetils.status}}</span>
+                    </p>
+                
+            </div>
             </div>
         </div>
     </div>
@@ -37,7 +59,10 @@ import axios from 'axios'
         name:"ComJobDetails",
         data () {
                 return{
-                    jobDetils:{}
+                    jobDetils:{},
+                    owner:{},
+                    accepted_developer:{}
+                    
                 }
         },
         props:['id'],
@@ -46,6 +71,17 @@ import axios from 'axios'
             axios.get('jobs/company/company-jobs/4/').then((res)=>{
                 console.log("data",res.data)
                 this.jobDetils=res.data
+                this.owner=this.jobDetils.job_owner
+                this.accepted_developer=this.jobDetils.developer
+            }).catch(err=>{
+            console.log(err)
+        })
+        },
+        acceptDev(accepted_id){
+                console.log(accepted_id)
+                axios.post('jobs/company/company-jobs/4/accept/',{id:21,}).then((res)=>{
+                console.log("data",res.data)
+                console.log('accept developer fun')
             }).catch(err=>{
             console.log(err)
         })
@@ -85,5 +121,20 @@ import axios from 'axios'
         border-radius: 20px;
         font-size: 12px;
         margin-left: 5px;
+    }
+     .status{
+        margin-top:12px;
+        font-size: 12px;
+    }
+    .status span{
+        padding: 3px 6px;
+    }
+    .progress{
+        background-color: rgba(255,193,7, 0.3);
+        color:rgb(255,193,7);
+    }
+    .OPEN{
+        background-color: rgba(25,135,84, 0.3);
+        color:rgb(25,135,84);
     }
 </style>

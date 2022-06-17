@@ -21,7 +21,7 @@
       <td>{{job.modification_time}}</td>
       <td>{{job.creation_time}}</td>
       <td>
-        <router-link :to="`/job/${job.id}`" class="show btn display-block ">Show Details</router-link>
+        <router-link :to="`/home/${job.id}/job-details`" class="show btn display-block ">Show Details</router-link>
         <router-link :to="`/job/${job.id}`" class="apply btn display-block ">Update</router-link>
         <router-link :to="`/job/${job.id}`" class="btn btn-danger  display-block ">Show Details</router-link>
 
@@ -64,7 +64,6 @@ import axios from 'axios'
             let keyWord = ref('')
             
              
-            //Get All Jobs From Api
           
             return{
             
