@@ -58,6 +58,16 @@
                     }
                 ]
             }
+            //Get Job Details From Api
+            let id = this.$route.params.id
+            /*axios.get(`http://127.0.0.1:8000/jobs/developer/${id}`)
+            .then((response)=>{
+                jobDetils.value = response.data
+                console.log(response.data)
+            })
+            .catch((err)=>{
+                console.log(err.response.data)
+            }) */
             return{
                 jobDetils
             }
