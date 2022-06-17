@@ -5,7 +5,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginApp from './components/Login.vue';
 import SignupApp from './components/Signup.vue';
 import HomeApp from './components/Home.vue';
-import ProfileApp from './components/Profile.vue'
+import ProfileApp from './components/Profile.vue';
+import NotificationsComponent from "./components/Notifications.vue";
 import './axios'
 
 //import Vue from 'vue'
@@ -32,6 +33,11 @@ const routes = [
         path: '/signup',
         name: 'signup',
         component: SignupApp,
+      },
+      {
+        path: '/notifications',
+        name: 'notifications',
+        component: NotificationsComponent,
       },
      
   ]
