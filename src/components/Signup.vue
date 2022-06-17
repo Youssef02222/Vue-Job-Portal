@@ -9,22 +9,51 @@
               <div class="card-body p-md-5">
                 <div class="row justify-content-center">
                   <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                    <button type="button" class="btn btn-success mx-5"
-                      @click="viewCV = 'yes', type = 'DEVELOPER'">Developer</button><button type="button"
-                      class="btn btn-success" @click="viewCV = 'no', type = 'COMPANY'">Company</button>
+                    <h2>Please select user type</h2>
+                    <button type="button" class="btn btn-outline-dark" @click="viewCV = 'yes', type = 'DEVELOPER'">Developer</button>
+                      <button type="button" class="btn btn-outline-dark mx-5" @click="viewCV = 'no', type = 'COMPANY'">Company</button>
                     <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
                     <form class="mx-1 mx-md-4" @submit.prevent="handleSubmit">
                       <div v-if="error != '12'" class="alert alert-danger" role="alert">
                         invaild data {{ error }}
                       </div>
-                      <div class="d-flex flex-row align-items-center mb-4">
+
+
+                      <div v-if="viewCV == 'yes'" class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                           <input type="text" id="form3Example1c" v-model="usernames" class="form-control" required />
                           <label class="form-label" for="form3Example1c">Username</label>
                         </div>
                       </div>
+
+                       <div v-if="viewCV == 'yes'" class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="text" id="form3Example1c" v-model="firstname" class="form-control" required />
+                          <label class="form-label" for="form3Example1c">First_name</label>
+                        </div>
+                      </div>
+
+
+                        <div v-if="viewCV == 'no'" class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="text" id="form3Example1c" v-model="usernames" class="form-control" required />
+                          <label class="form-label" for="form3Example1c">Company name</label>
+                        </div>
+                      </div>
+
+                       <div v-if="viewCV == 'no'" class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                          <input type="text" id="form3Example1c" v-model="firstname" class="form-control" required />
+                          <label class="form-label" for="form3Example1c">address</label>
+                        </div>
+                      </div>
+
+
 
                       <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
@@ -55,8 +84,12 @@
                       <div v-if="viewCV == 'yes'" class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
-                          <input type="file" @change="handleFileUpload($event)" />
-                          <label class="form-label" for="form3Example4cd">Upload CV</label>
+                              <!-- <label class="form-label">Upload CV</label>
+                           <input type="file" @change="handleFileUpload( $event )"/>
+                           <button v-on:click="submitFile()">Submit</button> -->
+                           <button class="btn btn-info" @click="onPickFile">Upload cv {{file}}</button>
+                           <input  type="file" style="display: none"  ref="fileInput"  @change="onFilePicked"/>
+                       
                         </div>
                       </div>
 
@@ -93,38 +126,46 @@ export default {
     return {
       viewCV: 'no',
       usernames: '',
+      firstname:'',
       password: '',
       confirm_password: '',
       email: '',
       cv: '',
-      file: '',
       error: '12',
-      type: ''
+      type: '',
+       image: null,
+       file:''
     }
   },
   methods: {
+   onPickFile () {
+  this.$refs.fileInput.click()
+},
+onFilePicked (event) {
+  const files = event.target.files
+  let filename = files[0].name
+  this.file=filename
+  const fileReader = new FileReader()
+  fileReader.addEventListener('load', () => {
+    this.imageUrl = fileReader.result
+  })
+  fileReader.readAsDataURL(files[0])
+  this.image = files[0]
+},
     handleSubmit() {
-      let data = {
+      let data={}
+      if(this.viewCV=='yes'){
+         data = {
         username: this.usernames,
+        first_name:this.firstname,
         password: this.password,
         password_confirm: this.confirm_password,
         email: this.email,
-        user_type: this.type
+        user_type: this.type,
+        cv:this.image
       }
-      console.log(data);
-      //   const res = await axios.post('developer_signup',data)
-      //    .catch((err)=>{
-      //     console.log(res.status)
-      //      console.log('FAILURE!!'+''+err);
-      //      this.error=err
-      //      });
-      //
 
-
-
-
-
-      axios.post('accounts/developer_signup', data,
+           axios.post('accounts/developer_signup/', data,
       ).then(
         res => {
 
@@ -140,6 +181,51 @@ export default {
           this.error = 'please try again'
           console.log('FAILURE!!' + '' + err);
         });
+
+
+
+      }
+      else{
+         data = {
+        company_name: this.usernames,
+        address:this.firstname,
+        password: this.password,
+        password_confirm: this.confirm_password,
+        email: this.email,
+        user_type: this.type
+      }
+         axios.post('accounts/company_signup/', data,
+      ).then(
+        res => {
+
+          console.log('SUCCESS!!');
+          console.log(this.type);
+
+          console.log(res)
+          this.$router.push('./login');
+        }
+
+      )
+        .catch((err) => {
+          this.error = 'please try again'
+          console.log('FAILURE!!' + '' + err);
+        });
+
+
+
+
+
+      }
+    
+      console.log(data);
+      console.log(this.image)
+   
+
+
+
+
+
+     
     },
 
   }
