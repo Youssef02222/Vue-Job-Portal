@@ -70,17 +70,24 @@ import axios from 'axios'
            } 
         },
         methods:{
-          async  handleSubmit(){
-                const response= await axios.post('accounts/login',{
+            handleSubmit(){
+                 axios.post('accounts/login/',{
                     username:this.username,
                     password:this.password
-                });
-                console.log(response.data.id)
-                localStorage.setItem('token',response.data.token)
-                localStorage.setItem('id',response.data.id)
-                localStorage.setItem('userType',response.data.userType)
+                }).then(
+                  response=>{
+                     localStorage.setItem('token',response.data.token)
+                     localStorage.setItem('id',response.data.id)
+                     localStorage.setItem('userType',response.data.userType)
+                     console.log("tygsdf")
+                  }
+                );
+               // console.log(response.data.id)
+               
+
+
                // this.$store.dispatch('user', response.data.user)
-                this.$router.push('/home')
+               // this.$router.push('/home')
             }
         }
 

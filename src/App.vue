@@ -21,7 +21,11 @@ import axios from 'axios'
 export default {
 
         name: 'App',
-      
+      provide(){
+        return{
+          user:this.user
+        }
+      },
         components: {
           NavApp
           // container,  
@@ -29,16 +33,23 @@ export default {
       data(){
             return{
                 user:[],
-                
-               
             }
         },
          async created(){
+            let userType=localStorage.getItem('userType')
             let id=localStorage.getItem('id')
-            if(id){
-               const response=await axios.get('profile/view/'+id)
-            console.log(response)
-            this.user=response.data
+          // let id=this.$route.params.id
+            if(userType=='DEVELOPER'){
+
+                const response=await axios.get('profile/dev/'+id+'/details/')
+                console.log(response.data)
+                this.user=response.data
+          //  console.log(this.user.first_name)
+            }
+            else if(userType=='COMPANY'){
+                 const response=await axios.get('profile/'+id+'/details/')
+                 console.log(response.data)
+                 this.user=response.data
             }
            
         },
