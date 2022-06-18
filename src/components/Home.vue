@@ -1,29 +1,39 @@
 <template>
     <div>
-        <h1 v-if="user.username">Home {{user}}</h1>
-        <h1 v-if="!user.username">you are not logged in  {{user}}</h1>
-        <JobsList/>
+       
+            
+            <ComJobListVue v-if="userType=='COMPANY'"/>
+            <DevJobList  v-if="userType=='DEVELOPER'"/>
+        
+        
+        <h1 v-if="!user.username">you are not logged in </h1>
+                 
+
     </div>
 </template>
 
 <script>
+import ComJobListVue from './Company/ComJobList.vue'
+import DevJobList from './Developer/JobsList.vue'
 
-import JobsList from './Developer/JobsList.vue'
     export default {
         name:'HomeApp',
         props:['user'],
-       //inject: ['user'],
        
          data(){
             return{ 
               // user:this.user
+              userType:localStorage.getItem('userType')
             }
         },
-        components:{
+        components :{
+    ComJobListVue,
+ DevJobList,            }
+       
+       }
+        
+  
     
-    JobsList
-}
-    }
 
     
    
