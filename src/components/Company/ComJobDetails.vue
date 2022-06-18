@@ -33,11 +33,13 @@ owner: {{owner}}
                </div>
                   <div class="skills">
                     <p class="job-title">Accepted Developer data</p>
-                    <ul>
+                    <ul v-if="accepted_developer !== null">
                         <li>{{accepted_developer.username}}</li>
                         <li>{{accepted_developer.email}}</li>
                         <li>{{accepted_developer.first_name}}</li>
+
                     </ul>
+                    <p v-if="accepted_developer == null">Developer not selected yet</p>
                 </div>
                 <div class="skills">
                     <p class="job-title">Status</p>
@@ -46,6 +48,8 @@ owner: {{owner}}
                     </p>
                 
             </div>
+            <button @click="finishJob" class="btn btn-success" >Finish Job</button>
+            
             </div>
         </div>
     </div>
@@ -61,14 +65,17 @@ import axios from 'axios'
                 return{
                     jobDetils:{},
                     owner:{},
-                    accepted_developer:{}
+                    accepted_developer:{},
+                    
                     
                 }
         },
         props:['id'],
          methods : {
         getJob(){
-            axios.get('jobs/company/company-jobs/4/').then((res)=>{
+            let id=this.$route.params.id
+            console.log("id bla : ",id)
+            axios.get('jobs/company/company-jobs/'+id+'/').then((res)=>{
                 console.log("data",res.data)
                 this.jobDetils=res.data
                 this.owner=this.jobDetils.job_owner
@@ -79,9 +86,18 @@ import axios from 'axios'
         },
         acceptDev(accepted_id){
                 console.log(accepted_id)
-                axios.post('jobs/company/company-jobs/4/accept/',{id:21,}).then((res)=>{
+                axios.post('jobs/company/company-jobs/'+this.jobDetils.id+'/accept/',{id:21,}).then((res)=>{
                 console.log("data",res.data)
                 console.log('accept developer fun')
+            }).catch(err=>{
+            console.log(err)
+        })
+        },
+         finishJob(){
+            console.log(this.jobDetils.id)
+                axios.post('jobs/company/company-jobs/'+this.jobDetils.id+'/finish/',).then((res)=>{
+                console.log("data",res.data)
+                console.log('finish job fun')
             }).catch(err=>{
             console.log(err)
         })

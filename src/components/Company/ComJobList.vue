@@ -17,12 +17,13 @@
       <th>{{job.name}}</th>  
       <th>{{job.status}}</th>
       <td>{{job.description}}</td>
-      <td>{{job.developer}}</td>
+      <td v-if="job.developer !== null" >{{job.developer.username}}</td>
+      <td v-if="job.developer ==null">Not selected yet</td>
       <td>{{job.modification_time}}</td>
       <td>{{job.creation_time}}</td>
       <td>
         <router-link :to="`/home/${job.id}/job-details`" class="show btn display-block ">Show Details</router-link>
-        <router-link :to="`/job/${job.id}`" class="apply btn display-block ">Update</router-link>
+        <router-link :to="`/home/${job.id}/job-update`" class="apply btn display-block ">Update</router-link>
         <router-link :to="`/job/${job.id}`" class="btn btn-danger  display-block ">Show Details</router-link>
 
 
@@ -43,10 +44,12 @@ import axios from 'axios'
        components: {
         //Dropdown,
         
+        
         },
         data() {
             return{
-                    jobs:[]
+                    jobs:[],
+                  
             }
         },
         created(){
