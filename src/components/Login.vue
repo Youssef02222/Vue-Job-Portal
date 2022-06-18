@@ -13,6 +13,10 @@
 
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Login</p>
 
+                <div class="alert alert-danger" v-if="error==true">
+                      {{error}}
+                </div>
+
                 <form class="mx-1 mx-md-4" @submit.prevent="handleSubmit">
 
                   <div class="d-flex flex-row align-items-center mb-4">
@@ -68,7 +72,8 @@ import axios from 'axios'
         data(){
            return{
             username:'',
-            password:''
+            password:'',
+            error:false,
            } 
         },
         methods:{
@@ -81,14 +86,20 @@ import axios from 'axios'
                      localStorage.setItem('token',response.data.token)
                      localStorage.setItem('id',response.data.id)
                      localStorage.setItem('userType',response.data.userType)
-                     console.log("tygsdf")
+                     this.error=true
+                     this.error=response.error()
+                     console.log(this.error+'kljlkjlkjkljlkjlk')
+                   
                   }
-                );
-               // console.log(response.data.id)
-               
-
-
-               // this.$store.dispatch('user', response.data.user)
+                )
+                 .catch((err) => {
+                        this.error = "invalid login data"
+                         console.log('FAILURE!!' + '' + err);
+                         console.log('try again')
+                       
+                    });
+                    console.log(this.error)
+           
                 this.$router.push('/home')
             }
         }

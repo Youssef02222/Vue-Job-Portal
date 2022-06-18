@@ -9,6 +9,8 @@ import ProfileApp from './components/Profile.vue'
 import ComJobDetails  from './components/Company/ComJobDetails'
 import UpdateJob from './components/Company/UpdateComJob'
 import DevJobDetails from './components/Developer/JobDetails.vue'
+import CompanyProfile from './components/CompanyProfile.vue';
+import NotificationsComponent from "./components/Notifications.vue";
 
 import './axios'
 import PrimeVue from "primevue/config";
@@ -62,6 +64,16 @@ const routes = [
       },
   
     
+      {
+        path: '/notifications',
+        name: 'notifications',
+        component: NotificationsComponent,
+      },
+      {
+        path: '/profile-company',
+        name: 'profile-company',
+        component: CompanyProfile,
+      },
      
   ]
   const router = createRouter({

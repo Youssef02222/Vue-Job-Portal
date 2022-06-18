@@ -13,12 +13,10 @@
       <li class="nav-item">
          <router-link to="/signup" class="nav-link mx-4" href="#">Signup</router-link>
       </li>
-       <li class="nav-item">
-         <router-link to="/profile" class="nav-link mx-4" href="#">Profile</router-link>
-      </li>
+     
     </ul>
 
-     <ul class="navbar-nav" v-if="user.username">
+     <ul class="navbar-nav" v-if="user_type=='DEVELOPER'">
       <li class="nav-item">
         <router-link to="/home" class="nav-link active mx-4" href="#">Home</router-link>
       </li>
@@ -30,10 +28,20 @@
       <li class="nav-item">
         <a href="/login" @click="handleClick" class="nav-link mx-4" >Logout</a>
       </li>
+  </ul>
 
-    
+       <ul class="navbar-nav" v-if="user_type=='COMPANY'">
+      <li class="nav-item">
+        <router-link to="/home" class="nav-link active mx-4" href="#">Home</router-link>
+      </li>
 
-      
+       <li class="nav-item">
+         <router-link to="/profile-company" class="nav-link mx-4" href="#">Profile</router-link>
+      </li>
+
+      <li class="nav-item">
+        <a href="/login" @click="handleClick" class="nav-link mx-4" >Logout</a>
+      </li>
     </ul>
 
 
@@ -48,6 +56,11 @@
     export default {
         name:'NavApp',
         props:['user'],
+        data(){
+          return{
+            user_type:localStorage.getItem('userType')
+          }
+        },
         
         methods:{
             handleClick(){
