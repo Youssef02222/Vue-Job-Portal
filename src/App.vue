@@ -25,8 +25,6 @@ export default {
         components: {
           NavApp,
           
-
-
           // container,  
       },  
       data(){

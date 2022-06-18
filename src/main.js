@@ -8,6 +8,8 @@ import HomeApp from './components/Home.vue';
 import ProfileApp from './components/Profile.vue'
 import ComJobDetails  from './components/Company/ComJobDetails'
 import UpdateJob from './components/Company/UpdateComJob'
+import DevJobDetails from './components/Developer/JobDetails.vue'
+
 import './axios'
 import PrimeVue from "primevue/config";
 import MultiSelect from 'primevue/multiselect';
@@ -52,6 +54,14 @@ const routes = [
         component: SignupApp,
       },
       
+
+      {
+        path: '/home/:id/dev-job-details',
+        name: 'dev-job-details',
+        component: DevJobDetails
+      },
+  
+    
      
   ]
   const router = createRouter({
