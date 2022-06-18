@@ -11,7 +11,7 @@ import UpdateJob from './components/Company/UpdateComJob'
 import DevJobDetails from './components/Developer/JobDetails.vue'
 import CurrentJob from './components/Developer/CurrentJob.vue';
 import NotificationsComponent from "./components/Notifications.vue";
-
+import CreateJob from './components/Company/CreateJob'
 import './axios'
 import PrimeVue from "primevue/config";
 import MultiSelect from 'primevue/multiselect';
@@ -74,6 +74,11 @@ const routes = [
         path: '/current-dev-job',
         name: 'current-dev-job',
        component: CurrentJob,
+      },
+      {
+        path: '/home/create-job',
+        name: 'create-job',
+       component: CreateJob,
       },
      
   ]
