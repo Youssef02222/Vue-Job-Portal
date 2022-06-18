@@ -8,6 +8,8 @@
                     <div class="profile-img">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
                             alt="" />
+                                <InputSwitch @change="notify()" v-model="checked" />
+
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -120,6 +122,8 @@ export default {
     props: ['user'],
     data() {
         return {
+            checked:this.user.allow_notification,
+
            // user_info:this.user,
             update: 'no',
             username: '',
@@ -133,6 +137,22 @@ export default {
         }
     },
     methods:{
+            notify(){
+             axios.post('profile/dev/allow_notification/'
+            ).then(
+                res => {
+                    console.log('SUCCESS!!');
+                    console.log(res)
+                    this.$router.push('./profile');
+                }
+
+            )
+                .catch((err) => {
+                    this.error = 'please try again'
+                    console.log('FAILURE!!' + '' + err);
+                });
+
+        },
           handleUpdate() {
            let id =localStorage.getItem('id')
 

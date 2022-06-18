@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div class="mt-4">
+ 
         <div class="container emp-profile" v-if="update == 'no'">
             <form method="post">
                 <div class="row">
@@ -7,6 +8,8 @@
                         <div class="profile-img">
                             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
                                 alt="" />
+                                <p>Notification</p>
+                                 <InputSwitch @change="notify()" v-model="checked" />
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -142,6 +145,10 @@
         <div v-if="error!='10'" class="alert alert-danger">
     {{error}}
 </div>
+{{tags}}
+{{selected}}
+{{ids}}
+
 <keep-alive>
             <form @submit.prevent="handleSubmit">
                 <!-- 2 column grid layout with text inputs for the first and last names -->
@@ -179,26 +186,23 @@
                     <label class="form-label" for="form6Example5">Email</label>
                 </div>
 
-                <!-- Number input -->
-                <!-- <div class="form-outline mb-4">
-                    <input type="number" id="form6Example6" class="form-control" v-model="phone" />
-                    <label class="form-label" for="form6Example6">Phone</label>
-                </div> -->
+         <MultiSelect @change="selected_tags()" v-model="selected" :options="tags" optionLabel="name" placeholder="Select tags" />
 
                 <!-- Submit button -->
-                <button type="submit" @click="handleUpdate" class="btn btn-dark btn-block mb-4">Submit</button>
+                <button type="submit" @click="handleUpdate()" class="btn btn-dark btn-block mb-4">Submit</button>
 
             </form>
             </keep-alive>
+     
 
         </div>
 
 
+<div>
 
+   <CurrentJob v-if="update == 'no'"></CurrentJob>
 
-
-
-
+</div>
 
 
 
@@ -210,12 +214,17 @@
 
 <script>
 import axios from 'axios'
-
+import CurrentJob from './CurrentJob.vue';
 export default {
     name: 'DevProfile',
     props: ['user'],
+    components:{
+CurrentJob,
+    },
     data() {
         return {
+            selected:null,
+            checked:this.user.allow_notification,
             update: 'no',
             username: this.user.username,
             firstname: this.user.first_name,
@@ -223,7 +232,12 @@ export default {
             password: '',
             confirm_password: '',
             phnoe: '',
-            error:'10'
+            error:'10',
+             tags:[],
+             ids:[]
+          
+          
+
 
 
         }
@@ -232,6 +246,28 @@ export default {
         //console.log(this.update)
     },
     methods: {
+   
+        selected_tags(){
+            this.ids = this.selected.map((obj) => obj.id);
+            console.log(this.tags_id); 
+        },
+        notify(){
+             axios.post('profile/dev/allow_notification/'
+            ).then(
+                res => {
+                    console.log('SUCCESS!!');
+                    console.log(res)
+                    this.$router.push('./profile');
+                }
+
+            )
+                .catch((err) => {
+                    this.error = 'please try again'
+                    console.log('FAILURE!!' + '' + err);
+                });
+
+        },
+
         handleUpdate() {
            let id =localStorage.getItem('id')
 
@@ -242,7 +278,8 @@ export default {
                 password_confirm: this.confirm_password,
                 email: this.email,
                 user_type: this.type,
-                cv: this.image
+                cv: this.image,
+                tags:this.ids
             }
 
             axios.patch('profile/dev/'+id+'/update/', data,
@@ -269,9 +306,22 @@ export default {
  this.$router.push('./home');
 
 
-        }
+        },    
+         getTags(){
+            axios.get('tags/list/').then((res)=>{
+                console.log("tags data",res.data)
+               this.tags=res.data
+                
+            }).catch(err=>{
+            console.log("taggss err",err)
+        })
+        },
 
-    }
+    },
+    mounted (){
+        this.getTags()
+       
+    },
 
 
 
