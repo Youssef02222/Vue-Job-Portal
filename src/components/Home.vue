@@ -3,12 +3,11 @@
         <div v-if="user.id">
             
             <ComJobListVue v-if="userType=='COMPANY'"/>
-            <!-- <ComJobDetails/> -->
+            <DevJobList  v-if="userType=='DEVELOPER'"/>
         </div>
         
-        <h1 v-if="!user.username">you are not logged in  {{user}}</h1>
-         <h1 v-if="user.UserType=='DEVELOPER'"></h1>
-                 <DevJobList/>
+        <h1 v-if="!user.username">you are not logged in </h1>
+                 
 
     </div>
 </template>
