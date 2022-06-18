@@ -19,10 +19,13 @@
      <ul class="navbar-nav" v-if="user_type=='DEVELOPER'">
       <li class="nav-item">
         <router-link to="/home" class="nav-link  mx-4" href="#">Home</router-link>
-      </li>
+      </li> 
 
        <li class="nav-item">
          <router-link to="/profile" class="nav-link mx-4" href="#">Profile</router-link>
+      </li>
+       <li class="nav-item">
+        <router-link to="/notifications" class="nav-link  mx-4" >Notification</router-link>
       </li>
 
       <li class="nav-item">
@@ -36,7 +39,10 @@
       </li>
 
        <li class="nav-item">
-         <router-link to="/profile-company" class="nav-link mx-4" href="#">Profile</router-link>
+         <router-link to="/profile" class="nav-link mx-4" href="#">Profile</router-link>
+      </li>
+        <li class="nav-item">
+        <router-link to="/notifications" class="nav-link  mx-4" >Notification</router-link>
       </li>
 
       <li class="nav-item">

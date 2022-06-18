@@ -9,12 +9,13 @@ import ProfilePage from './components/ProfilePage.vue'
 import ComJobDetails  from './components/Company/ComJobDetails'
 import UpdateJob from './components/Company/UpdateComJob'
 import DevJobDetails from './components/Developer/JobDetails.vue'
-// import CompanyProfile from './components/CompanyProfile.vue';
+import CurrentJob from './components/Developer/CurrentJob.vue';
 import NotificationsComponent from "./components/Notifications.vue";
 
 import './axios'
 import PrimeVue from "primevue/config";
 import MultiSelect from 'primevue/multiselect';
+import InputSwitch from 'primevue/inputswitch';
 import 'primevue/resources/primevue.min.css'
 import 'primevue/resources/themes/saga-blue/theme.css'
 import 'primeicons/primeicons.css'
@@ -69,11 +70,11 @@ const routes = [
         name: 'notifications',
         component: NotificationsComponent,
       },
-      // {
-      //   path: '/profile-company',
-      //   name: 'profile-company',
-      //   component: CompanyProfile,
-      // },
+      {
+        path: '/current-dev-job',
+        name: 'current-dev-job',
+       component: CurrentJob,
+      },
      
   ]
   const router = createRouter({
@@ -83,14 +84,9 @@ const routes = [
 
 
 
-// new Vue({
-//   router,
-//    store,
-//    render:h=>(App),
-    
-// }).$mount('#app')
 
-createApp(App).use(router).use(PrimeVue).component("MultiSelect", MultiSelect).mount('#app')
+
+createApp(App).use(router).use(PrimeVue).component("MultiSelect", MultiSelect).use(PrimeVue).component("InputSwitch", InputSwitch).mount('#app')
 //.use(store)
 // new Vue({
   
