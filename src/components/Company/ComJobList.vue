@@ -1,5 +1,8 @@
 <template>
-   <table class="table table-striped">
+<div class="mt-4">
+        <router-link :to="`/home/create-job`" class="btn btn-primary display-block ">Create new job</router-link>
+</div>
+   <table class="table table-striped mt-4">
   <thead>
     <tr >
       <th scope="col">Job name</th>
@@ -24,8 +27,6 @@
       <td>
         <router-link :to="`/home/${job.id}/job-details`" class="show btn display-block ">Show Details</router-link>
         <router-link :to="`/home/${job.id}/job-update`" class="apply btn display-block ">Update</router-link>
-        <router-link :to="`/job/${job.id}`" class="btn btn-danger  display-block ">Show Details</router-link>
-
 
       </td>
     </tr>

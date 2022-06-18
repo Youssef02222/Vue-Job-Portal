@@ -123,7 +123,6 @@ export default {
     data() {
         return {
             checked:this.user.allow_notification,
-
            // user_info:this.user,
             update: 'no',
             username: '',
