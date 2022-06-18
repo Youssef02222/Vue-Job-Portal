@@ -4,6 +4,9 @@
             
             <companyProfile :user="user_data"  v-if="userType=='COMPANY'"/>
             <DevProfile :user="user_data" v-if="userType=='DEVELOPER'"/>
+
+            <!-- <companyProfile/>
+            <DevProfile/> -->
         
         
         <!-- <h1 v-if="!user.username">you are not logged in </h1> -->
@@ -14,6 +17,7 @@
 <script>
 import companyProfile from './Company/CompanyProfile.vue'
 import DevProfile from './Developer/DevProfile.vue'
+
 export default{
     name:'ProfilePage',
     props:['user'],
@@ -21,12 +25,16 @@ export default{
             return{ 
               // user:this.user
               userType:localStorage.getItem('userType'),
-              user_data:this.user
+              user_data:this.user,
+               
             }
         },
+       
+       
     components:{
         companyProfile,
         DevProfile,
-    }
+    },
+   
 }
 </script>

@@ -6,7 +6,7 @@
             <DevJobList  v-if="userType=='DEVELOPER'"/>
         
         
-        <h1 v-if="!user.username">you are not logged in </h1>
+        <div class="alert alert-danger" v-if="!user.user_type">Invalid login try again !</div>
                  
 
     </div>

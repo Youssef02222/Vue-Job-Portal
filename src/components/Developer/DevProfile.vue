@@ -175,8 +175,14 @@
                 <!-- Email input -->
                 <div class="form-outline mb-4">
 
-                    <input type="email" id="form6Example5"    v-model="email" class="form-control" />
+                    <input type="text" id="form6Example5"    v-model="email" class="form-control" />
                     <label class="form-label" for="form6Example5">Email</label>
+                </div>
+
+                 <div class="form-outline mb-4">
+
+                    <multi-select v-model="selected" :options="skills" @change="selected_tags()"     class="form-control" />
+                    <label class="form-label" for="form6Example5">Skills</label>
                 </div>
 
                 <!-- Number input -->
@@ -186,7 +192,7 @@
                 </div> -->
 
                 <!-- Submit button -->
-                <button type="submit" @click="handleUpdate" class="btn btn-dark btn-block mb-4">Submit</button>
+                <button type="button" @click="handleUpdate" class="btn btn-dark btn-block mb-4">Submit</button>
 
             </form>
             </keep-alive>
@@ -213,24 +219,47 @@ import axios from 'axios'
 
 export default {
     name: 'DevProfile',
-    props: ['user'],
+   // props: ['user'],
     data() {
         return {
             update: 'no',
-            username: this.user.username,
-            firstname: this.user.first_name,
-            email:this.user.email,
+            username: '',
+            firstname: '',
+            email:'',
             password: '',
             confirm_password: '',
             phnoe: '',
-            error:'10'
+            error:'10',
+            user:[],
+            skills:[],
+            selected:null,
+            tag_id:[]
 
 
         }
     },
-    created() {
-        //console.log(this.update)
-    },
+   async created(){
+            let userType=localStorage.getItem('userType')
+            let id=localStorage.getItem('id')
+          // let id=this.$route.params.id
+            if(userType=='DEVELOPER'){
+                const response=await axios.get('profile/dev/'+id+'/details/')
+                console.log(response.data)
+                this.user=response.data
+          //  console.log(this.user.first_name)
+            }
+            else if(userType=='COMPANY'){
+                 const response=await axios.get('profile/'+id+'/details/')
+                 console.log(response.data)
+                 this.user=response.data
+            }
+
+             const skills=await axios.get('tags/list')
+                 console.log(skills.data)
+                 this.skills=skills.data
+                console.log(this.selected)
+           
+        },
     methods: {
         handleUpdate() {
            let id =localStorage.getItem('id')
@@ -269,6 +298,12 @@ export default {
  this.$router.push('./home');
 
 
+        },
+        selected_tags(){
+            this.tags_id=this.selected.map((obj)=>{
+                obj.id
+            });
+            console.log(this.tags.id)
         }
 
     }
