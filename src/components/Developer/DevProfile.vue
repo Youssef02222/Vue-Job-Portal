@@ -139,7 +139,10 @@
         </div>
 
         <div v-if="update == 'yes'" class="container">
-       
+        <div v-if="error!='10'" class="alert alert-danger">
+    {{error}}
+</div>
+<keep-alive>
             <form @submit.prevent="handleSubmit">
                 <!-- 2 column grid layout with text inputs for the first and last names -->
                 <div class="row mb-4">
@@ -159,11 +162,11 @@
 
                 <!-- Text input -->
                 <div class="form-outline mb-4">
-                    <input type="password" v-model="password" id="form6Example3" class="form-control" />
+                    <input type="password" v-model="password" id="form6Example3" class="form-control" required/>
                     <label class="form-label" for="form6Example3">Password</label>
                 </div>
                 <div class="form-outline mb-4">
-                    <input type="password" v-model="confirm_password" id="form6Example3" class="form-control" />
+                    <input type="password" v-model="confirm_password" id="form6Example3" class="form-control" required/>
                     <label class="form-label" for="form6Example3">Confirm password</label>
                 </div>
 
@@ -172,20 +175,21 @@
                 <!-- Email input -->
                 <div class="form-outline mb-4">
 
-                    <input type="email" id="form6Example5" v-model="email" class="form-control" />
+                    <input type="email" id="form6Example5"    v-model="email" class="form-control" />
                     <label class="form-label" for="form6Example5">Email</label>
                 </div>
 
-                <!-- Number input
-                <div class="form-outline mb-4">
+                <!-- Number input -->
+                <!-- <div class="form-outline mb-4">
                     <input type="number" id="form6Example6" class="form-control" v-model="phone" />
                     <label class="form-label" for="form6Example6">Phone</label>
                 </div> -->
 
                 <!-- Submit button -->
-                <button type="button" @click="handleUpdate" class="btn btn-dark btn-block mb-4">Submit</button>
+                <button type="submit" @click="handleUpdate" class="btn btn-dark btn-block mb-4">Submit</button>
 
             </form>
+            </keep-alive>
 
         </div>
 
@@ -219,7 +223,7 @@ export default {
             password: '',
             confirm_password: '',
             phnoe: '',
-            error:''
+            error:'10'
 
 
         }
@@ -258,10 +262,15 @@ export default {
                     console.log('FAILURE!!' + '' + err);
                 });
 
+//    if(this.error=='10')
+//                 {
+//                      this.$router.push('./profile');
+//                 }
  this.$router.push('./home');
 
 
         }
+
     }
 
 

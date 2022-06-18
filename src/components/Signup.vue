@@ -125,7 +125,8 @@ export default {
       cv: '',
       file: '',
       error: '12',
-      type: ''
+      type: '',
+      urlType:''
     }
   },
   methods: {
@@ -140,6 +141,7 @@ export default {
         formData.append('password_confirm',this.confirm_password);
         formData.append('email',this.email);
         formData.append('user_type',this.type);
+        this.urlType='developer'
       }
       if(this.type=='COMPANY'){
         formData.append('username',this.username);
@@ -149,9 +151,13 @@ export default {
         formData.append('email',this.email);
         formData.append('address',this.address);
         formData.append('user_type',this.type);
+        this.urlType='company'
       }
 
-      axios.post('accounts/company_signup/', formData, {
+
+      
+
+      axios.post('accounts/'+this.urlType+'_signup/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
