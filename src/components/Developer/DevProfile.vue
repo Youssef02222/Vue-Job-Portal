@@ -182,7 +182,7 @@
                 <!-- Email input -->
                 <div class="form-outline mb-4">
 
-                    <input type="email" id="form6Example5"    v-model="email" class="form-control" />
+                    <input type="text" id="form6Example5"    v-model="email" class="form-control" />
                     <label class="form-label" for="form6Example5">Email</label>
                 </div>
 
@@ -217,7 +217,7 @@ import axios from 'axios'
 import CurrentJob from './CurrentJob.vue';
 export default {
     name: 'DevProfile',
-    props: ['user'],
+  //  props: ['user'],
     components:{
 CurrentJob,
     },
@@ -226,25 +226,45 @@ CurrentJob,
             selected:null,
             checked:this.user.allow_notification,
             update: 'no',
-            username: this.user.username,
-            firstname: this.user.first_name,
-            email:this.user.email,
+            username: '',
+            firstname: '',
+            email:'',
             password: '',
             confirm_password: '',
             phnoe: '',
             error:'10',
-             tags:[],
-             ids:[]
-          
-          
+
+            user:[],
+            skills:[],
+            
+
 
 
 
         }
     },
-    created() {
-        //console.log(this.update)
-    },
+   async created(){
+            let userType=localStorage.getItem('userType')
+            let id=localStorage.getItem('id')
+          // let id=this.$route.params.id
+            if(userType=='DEVELOPER'){
+                const response=await axios.get('profile/dev/'+id+'/details/')
+                console.log(response.data)
+                this.user=response.data
+          //  console.log(this.user.first_name)
+            }
+            else if(userType=='COMPANY'){
+                 const response=await axios.get('profile/'+id+'/details/')
+                 console.log(response.data)
+                 this.user=response.data
+            }
+
+             const skills=await axios.get('tags/list')
+                 console.log(skills.data)
+                 this.skills=skills.data
+                console.log(this.selected)
+           
+        },
     methods: {
    
         selected_tags(){

@@ -2,7 +2,7 @@
     <div>
  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <div class="container-fluid">
-    <ul class="navbar-nav" v-if="!user.username">
+    <ul class="navbar-nav" v-if="!user.email">
       <li class="nav-item">
         <router-link to="/home" class="nav-link active mx-4" href="#">Home</router-link>
       </li>
@@ -25,7 +25,7 @@
          <router-link to="/profile" class="nav-link mx-4" href="#">Profile</router-link>
       </li>
        <li class="nav-item">
-        <router-link to="/notifications" class="nav-link  mx-4" >Notification</router-link>
+         <router-link to="/notifications" class="nav-link mx-4" href="#">Notifications</router-link>
       </li>
 
       <li class="nav-item">

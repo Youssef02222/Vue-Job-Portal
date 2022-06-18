@@ -12,7 +12,8 @@
                     <button type="button" class="btn btn-success mx-5"
                       @click="isDeveloper = 'yes', type = 'DEVELOPER'">Developer</button><button type="button"
                       class="btn btn-success" @click="isDeveloper = 'no', type = 'COMPANY'">Company</button>
-                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" v-if="isDeveloper=='yes'">Developer Sign up </p>
+                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" v-if="isDeveloper=='no'">Company Sign up </p>
 
                     <form class="mx-1 mx-md-4" @submit.prevent="handleSubmit">
                       <div v-if="error !== '12'" class="alert alert-danger" role="alert">

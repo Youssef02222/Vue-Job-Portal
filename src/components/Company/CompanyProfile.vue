@@ -15,7 +15,7 @@
                 <div class="col-md-6">
                     <div class="profile-head">
                         <h5>
-                            Username : {{ user.username }}
+                            Username : {{ user.company_name }}
                         </h5>
                         <h5>
                             Company : {{ user.company_name }}
@@ -57,7 +57,7 @@
 </div>
         <div v-if="update=='yes'">
 
-         <form @submit.prevent="handleSubmit">
+         <form >
                 <!-- 2 column grid layout with text inputs for the first and last names -->
                 <div class="row mb-4">
                     <div class="col">
@@ -76,17 +76,17 @@
 
 
  <div class="form-outline mb-4">
-                    <input type="text" v-model="address" id="form6Example3" class="form-control" />
+                    <input type="text" v-model="address" id="form6Example3" class="form-control" required/>
                     <label class="form-label" for="form6Example3">Address</label>
                 </div>
 
                 <!-- Text input -->
                 <div class="form-outline mb-4">
-                    <input type="password" v-model="password" id="form6Example3" class="form-control" />
+                    <input type="password" v-model="password" id="form6Example3" class="form-control" required/>
                     <label class="form-label" for="form6Example3">Password</label>
                 </div>
                 <div class="form-outline mb-4">
-                    <input type="password" v-model="confirm_password" id="form6Example3" class="form-control" />
+                    <input type="password" v-model="confirm_password" id="form6Example3" class="form-control" required/>
                     <label class="form-label" for="form6Example3">Confirm password</label>
                 </div>
 
@@ -106,7 +106,7 @@
                 </div>
 
                 <!-- Submit button -->
-                <button type="button" @click="handleUpdate" class="btn btn-dark btn-block mb-4">Submit</button>
+                <button type="submit" @submit.prevent="handleSubmit"  class="btn btn-dark btn-block mb-4">Submit</button>
 
             </form>
 
@@ -119,7 +119,7 @@ import axios from 'axios'
 
 export default {
     name: "companyProfile",
-    props: ['user'],
+   
     data() {
         return {
             checked:this.user.allow_notification,
@@ -132,9 +132,28 @@ export default {
             confirm_password: '',
             history: '',
             address:'',
-            error:'10'
+            error:'10',
+            user:[]
+            
         }
     },
+    async created(){
+            let userType=localStorage.getItem('userType')
+            let id=localStorage.getItem('id')
+          // let id=this.$route.params.id
+            if(userType=='DEVELOPER'){
+                const response=await axios.get('profile/dev/'+id+'/details/')
+                console.log(response.data)
+                this.user=response.data
+          //  console.log(this.user.first_name)
+            }
+            else if(userType=='COMPANY'){
+                 const response=await axios.get('profile/'+id+'/details/')
+                 console.log(response.data)
+                 this.user=response.data
+            }
+           
+        },
     methods:{
             notify(){
              axios.post('profile/dev/allow_notification/'
