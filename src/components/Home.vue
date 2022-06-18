@@ -28,7 +28,7 @@ import DevJobList from './Developer/JobsList.vue'
         },
         components :{
     ComJobListVue,
- DevJobList,            }
+    DevJobList,            }
        
        }
         

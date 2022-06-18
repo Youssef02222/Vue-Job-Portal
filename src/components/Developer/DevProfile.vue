@@ -139,6 +139,7 @@
         </div>
 
         <div v-if="update == 'yes'" class="container">
+       
             <form @submit.prevent="handleSubmit">
                 <!-- 2 column grid layout with text inputs for the first and last names -->
                 <div class="row mb-4">
@@ -175,11 +176,11 @@
                     <label class="form-label" for="form6Example5">Email</label>
                 </div>
 
-                <!-- Number input -->
+                <!-- Number input
                 <div class="form-outline mb-4">
                     <input type="number" id="form6Example6" class="form-control" v-model="phone" />
                     <label class="form-label" for="form6Example6">Phone</label>
-                </div>
+                </div> -->
 
                 <!-- Submit button -->
                 <button type="button" @click="handleUpdate" class="btn btn-dark btn-block mb-4">Submit</button>
@@ -207,14 +208,14 @@
 import axios from 'axios'
 
 export default {
-    name: 'ProfileApp',
+    name: 'DevProfile',
     props: ['user'],
     data() {
         return {
             update: 'no',
-            username: '',
-            firstname: '',
-            email:'',
+            username: this.user.username,
+            firstname: this.user.first_name,
+            email:this.user.email,
             password: '',
             confirm_password: '',
             phnoe: '',

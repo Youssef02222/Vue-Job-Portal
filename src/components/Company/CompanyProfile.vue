@@ -120,6 +120,7 @@ export default {
     props: ['user'],
     data() {
         return {
+           // user_info:this.user,
             update: 'no',
             username: '',
             firstname: '',

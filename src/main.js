@@ -5,11 +5,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginApp from './components/Login.vue';
 import SignupApp from './components/Signup.vue';
 import HomeApp from './components/Home.vue';
-import ProfileApp from './components/Profile.vue'
+import ProfilePage from './components/ProfilePage.vue'
 import ComJobDetails  from './components/Company/ComJobDetails'
 import UpdateJob from './components/Company/UpdateComJob'
 import DevJobDetails from './components/Developer/JobDetails.vue'
-import CompanyProfile from './components/CompanyProfile.vue';
+// import CompanyProfile from './components/CompanyProfile.vue';
 import NotificationsComponent from "./components/Notifications.vue";
 
 import './axios'
@@ -42,7 +42,7 @@ const routes = [
     {
       path: '/profile',
       name: 'Profile',
-      component: ProfileApp
+      component: ProfilePage
     },
    
       {
@@ -69,11 +69,11 @@ const routes = [
         name: 'notifications',
         component: NotificationsComponent,
       },
-      {
-        path: '/profile-company',
-        name: 'profile-company',
-        component: CompanyProfile,
-      },
+      // {
+      //   path: '/profile-company',
+      //   name: 'profile-company',
+      //   component: CompanyProfile,
+      // },
      
   ]
   const router = createRouter({
