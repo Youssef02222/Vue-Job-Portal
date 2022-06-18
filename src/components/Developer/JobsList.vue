@@ -29,7 +29,7 @@
                 </div>
                 <div class="job-actions col-4 border-start">
                     <router-link :to="`/home/${job.id}/dev-job-details`" class="show btn display-block w-100">Show Details</router-link>
-                    <button class="apply btn display-block w-100">Apply For Job</button>
+                    <button @click="devApply(job.id)" class="apply btn display-block w-100">Apply For Job</button>
                 </div>
             </div>
         </div>
@@ -76,6 +76,16 @@ import axios from 'axios'
                 }
         },
         methods: {
+
+                devApply(id){
+               
+                axios.post('jobs/developer/dev-jobs/'+id+'/apply/').then((res)=>{
+                console.log("data",res.data)
+                console.log('apply developer fun')
+            }).catch(err=>{
+            console.log(err)
+        })
+        },
             // filteration(list){
             //     if(this.selectedCities != null){
             //         list =  list.filter((l)=>{

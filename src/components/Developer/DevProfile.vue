@@ -212,7 +212,7 @@
 import axios from 'axios'
 
 export default {
-    name: 'ProfileApp',
+    name: 'DevProfile',
     props: ['user'],
     data() {
         return {
