@@ -224,7 +224,7 @@ CurrentJob,
     data() {
         return {
             selected:null,
-            checked:this.user.allow_notification,
+            checked:false,
             update: 'no',
             username: '',
             firstname: '',
@@ -257,6 +257,7 @@ CurrentJob,
                  const response=await axios.get('profile/'+id+'/details/')
                  console.log(response.data)
                  this.user=response.data
+                 this.checked=this.user.allow_notification
             }
 
              const skills=await axios.get('tags/list')

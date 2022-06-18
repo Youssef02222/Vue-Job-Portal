@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="mt-4">
         <div class="container emp-profile" v-if="update == 'no'">
 
 
@@ -8,9 +8,10 @@
                     <div class="profile-img">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog"
                             alt="" />
-                                <InputSwitch @change="notify()" v-model="checked" />
 
                     </div>
+                                       <InputSwitch @change="notify()" v-model="checked" />
+
                 </div>
                 <div class="col-md-6">
                     <div class="profile-head">
@@ -32,7 +33,6 @@
                                     aria-controls="home" aria-selected="true">History</a>
                             </li>
                         </ul>
-                        {{ user.history }}
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -55,7 +55,7 @@
 <div v-if="error!='10'" class="alert alert-danger">
     {{error}}
 </div>
-        <div v-if="update=='yes'">
+        <div class="mt-4" v-if="update=='yes'">
 
          <form >
                 <!-- 2 column grid layout with text inputs for the first and last names -->
@@ -122,8 +122,7 @@ export default {
    
     data() {
         return {
-            checked:this.user.allow_notification,
-           // user_info:this.user,
+            checked:false,
             update: 'no',
             username: '',
             firstname: '',
@@ -151,6 +150,7 @@ export default {
                  const response=await axios.get('profile/'+id+'/details/')
                  console.log(response.data)
                  this.user=response.data
+                 this.checked=this.user.allow_notification
             }
            
         },
